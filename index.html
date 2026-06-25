@@ -1,28 +1,718 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>eComputing 2026</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --primary: #123d8d;
+      --secondary: #20b5ef;
+      --primary-dark: #0b2e6f;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --bg: #f4f7fb;
+      --white: #ffffff;
+      --border: #cfe0f5;
+      --shadow: 0 10px 25px rgba(18, 61, 141, 0.08);
+      --radius: 22px;
+      --max: 1200px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.5;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(100% - 2rem, var(--max));
+      margin: 0 auto;
+    }
+
+    /* NAV */
+    .topbar {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.9rem 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .brand img {
+      height: 42px;
+      object-fit: contain;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      font-weight: 600;
+    }
+
+    .nav-links a:hover {
+      color: var(--secondary);
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      color: var(--white);
+      background:
+        linear-gradient(rgba(8, 22, 52, 0.55), rgba(8, 22, 52, 0.70)),
+        url("img/vitoria-gasteiz.jpg") center/cover no-repeat;
+      padding: 5rem 0 4rem;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      max-width: 800px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 6vw, 4.6rem);
+      line-height: 1.05;
+      font-weight: 800;
+    }
+
+    .hero p.lead {
+      margin: 1rem 0 1.5rem;
+      font-size: clamp(1.1rem, 2vw, 1.6rem);
+      font-weight: 600;
+    }
+
+    .hero .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 1.4rem;
+      margin-top: 1.2rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .hero .meta span {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 0.65rem 1rem;
+      border-radius: 999px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* INTRO CARD */
+    .intro-wrap {
+      margin-top: -55px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .intro-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .intro-side {
+      border-right: 1px solid var(--border);
+      padding-right: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .intro-side img {
+      max-height: 62px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .intro-main h2 {
+      margin: 0 0 0.4rem;
+      color: var(--primary);
+      font-size: 1.8rem;
+    }
+
+    .intro-main p {
+      margin: 0.25rem 0;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    /* SECTION */
+    section {
+      padding: 3rem 0;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      color: var(--primary);
+      margin: 0 0 1rem;
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      margin: 0 0 2rem;
+      max-width: 760px;
+    }
+
+    /* CARDS */
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+    }
+
+    /* PROGRAMME */
+    .programme-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .day-card h3 {
+      margin: 0 0 1rem;
+      font-size: 1.6rem;
+      color: var(--primary);
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 0.7rem;
+    }
+
+    .agenda-item {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 1rem;
+      padding: 0.8rem 0;
+      border-bottom: 1px dashed #d8e4f3;
+    }
+
+    .agenda-item:last-child {
+      border-bottom: none;
+    }
+
+    .time {
+      font-weight: 800;
+      color: var(--primary-dark);
+      font-size: 0.98rem;
+    }
+
+    .talk {
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    .talk strong {
+      color: var(--primary-dark);
+    }
+
+    .break {
+      background: #eef7ff;
+      border-radius: 14px;
+      padding: 0.2rem 0.6rem;
+      display: inline-block;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    /* INFO */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+    }
+
+    .info-card h3 {
+      margin-top: 0;
+      color: var(--primary);
+      font-size: 1.25rem;
+    }
+
+    .info-card p,
+    .info-card li {
+      color: var(--text);
+    }
+
+    .info-card ul {
+      margin: 0.5rem 0 0;
+      padding-left: 1.2rem;
+    }
+
+    /* MENUS */
+    .menus-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+
+    .menu-card h3 {
+      margin-top: 0;
+      color: var(--primary);
+    }
+
+    .menu-card ul {
+      padding-left: 1.2rem;
+      margin: 0.5rem 0 0;
+    }
+
+    /* ORGANIZERS */
+    .logos-section {
+      padding-top: 1rem;
+    }
+
+    .logos-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .logos-card h3 {
+      margin: 0 0 1rem;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-size: 1.1rem;
+    }
+
+    .logo-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem 2rem;
+      align-items: center;
+    }
+
+    .logo-row img {
+      height: 58px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--primary-dark);
+      color: var(--white);
+      margin-top: 2rem;
+    }
+
+    .footer-inner {
+      padding: 2rem 0;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 1.2rem;
+      align-items: start;
+    }
+
+    .footer-inner h4 {
+      margin: 0 0 0.8rem;
+      font-size: 1.1rem;
+    }
+
+    .footer-inner p,
+    .footer-inner a {
+      color: rgba(255,255,255,0.92);
+      margin: 0.35rem 0;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.15);
+      text-align: center;
+      padding: 1rem 0 1.5rem;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.75);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 980px) {
+      .programme-grid,
+      .info-grid,
+      .menus-grid,
+      .logos-grid,
+      .footer-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .intro-card {
+        grid-template-columns: 1fr;
+      }
+
+      .intro-side {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding-right: 0;
+        padding-bottom: 1rem;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .agenda-item {
+        grid-template-columns: 1fr;
+        gap: 0.35rem;
+      }
+
+      .topbar-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero {
+        padding: 4rem 0 3rem;
+      }
+
+      .section-title {
+        font-size: 1.6rem;
+      }
+
+      .hero .meta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .logo-row img {
+        height: 48px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <h1>eComputing 2026</h1>
-  <h2>2 y 3 de julio · Vitoria-Gasteiz</h2>
+  <!-- Barra superior -->
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <!-- Sustituye estas rutas por tus logos -->
+        <img src="img/logo-ecomputing.png" alt="Logo eComputing" />
+        <img src="img/logo-birtlh.png" alt="Logo BIRT LH" />
+      </div>
 
-  <p>Bienvenidos/as a la página informativa de las jornadas eComputing.</p>
+      <nav class="nav-links">
+        <a href="#programa">Programa</a>
+        <a href="#info">Información práctica</a>
+        <a href="#menus">Menús</a>
+        <a href="#organizacion">Organización</a>
+      </nav>
+    </div>
+  </header>
 
-  <h2>Programa</h2>
-  <p>Aquí se incluirá el programa actualizado de las jornadas.</p>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-content">
+      <h1>eComputing 2026</h1>
+      <p class="lead">X Jornadas sobre la Enseñanza de la Informática en la FP a distancia</p>
 
-  <h2>Menús</h2>
-  <p>Aquí se incluirán los menús de las comidas.</p>
+      <div class="meta">
+        <span>📍 Vitoria-Gasteiz</span>
+        <span>📅 2 y 3 de julio de 2026</span>
+        <span>🏛 Palacio Europa</span>
+      </div>
+    </div>
+  </section>
 
-  <h2>Ubicaciones</h2>
-  <ul>
-    <li>Palacio de Congresos Europa</li>
-    <li>Catedral de Vitoria-Gasteiz</li>
-  </ul>
+  <!-- Cabecera estilo tarjeta -->
+  <div class="container intro-wrap">
+    <div class="intro-card">
+      <div class="intro-side">
+        <img src="img/logo-ecomputing.png" alt="eComputing" />
+        <img src="img/logo-birtlh.png" alt="BIRT LH" />
+      </div>
+
+      <div class="intro-main">
+        <h2>Bienvenidos a eComputing 2026</h2>
+        <p>
+          Un encuentro para compartir experiencias sobre informática, formación profesional,
+          inteligencia artificial, recursos docentes y nuevos retos en la enseñanza.
+        </p>
+        <p>
+          En esta página encontrarás el programa actualizado, la información práctica
+          del evento y los menús de las comidas.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Programa -->
+  <section id="programa">
+    <div class="container">
+      <h2 class="section-title">Programa completo</h2>
+      <p class="section-subtitle">
+        Este es el programa previsto para las jornadas. Si hubiese algún cambio de última hora,
+        lo actualizaremos aquí.
+      </p>
+
+      <div class="programme-grid">
+
+        <!-- Jueves -->
+        <article class="card day-card">
+          <h3>Jueves, 2 de julio</h3>
+
+          <div class="agenda-item">
+            <div class="time">16:00 - 16:15</div>
+            <div class="talk">
+              Bienvenida y presentación de jornadas:
+              <strong>Iñaki Gaztañaga</strong> (director de BIRTLH)
+            </div>
+          </div>
+
+          <div class="agenda-item">
+            <div class="time">16:15 - 17:00</div>
+            <div class="talk">
+              <strong>David Vargas Ruiz</strong> (IES Puerto de la Cruz):<br />
+              Repensando: quién, qué y cómo en el mundo IA
+            </div>
+          </div>
+
+          <div class="agenda-item">
+            <div class="time">17:00 - 17:45</div>
+            <div class="talk">
+              <strong>Mikel Aldalur Corta</strong> (BIRTLH):<br />
+              Agentes en Moodle para creación de cursos y contenidos
+            </div>
+          </div>
+
+          <div class="agenda-item">
+            <div class="time">17:45 - 18:15</div>
+            <div class="talk"><span class="break">Pausa café</span></div>
+          </div>
+
+          <div class="agenda-item">
+            <div class="time">18:15 - 19:15</div>
+            <div class="talk">
+              <strong>Alberto Larraz</strong> (Isard):<br />
+              Laboratorios e IAs locales
+            </div>
+          </div>
+
+          <div class="agenda-item">
+            <div class="time">19:15 - 20:00</div>
+            <div class="talk">
+              <strong>Bartolomé Sintes</strong> (IES Abastos):<br />
+              Mirando hacia delante con irA
+            </div>
+          </div>
+        </article>
+
+        <!-- Viernes -->
+        <article class="card day-card">
+          <h3>Viernes, 3 de julio</h3>
+
+          <div class="agenda-item">
+            <div class="time">09:15 - 09:30</div>
+            <div class="talk">
+              Bienvenida y presentación de la jornada del viernes
+            </div>
+          </div>
+
+          <div class="agenda-item">
+            <div class="time">09:30 - 10:30</div>
+            <div class="talk">
+              <strong>Daniel Pérez Gutiérrez</strong> (Minetechnology):<br />
+              Cuando la IA se come el software: procesos, talento y criterio para una nueva revolución industrial
+            </div>
+          </div>
+
+          <div class="agenda-item">
+            <div class="time">10:30 - 11:30</div>
+            <div class="talk">
+              <strong>Jorge Hidalgo</strong> (Accenture):<br />
+              IA agéntica para el desarrollo: no a los vibes, sí a los specs
+            </div>
+          </div>
+
+          <div class="agenda-item">
+            <div class="time">11:30 - 12:00</div>
+            <div class="talk"><span class="break">Pausa café</span></div>
+          </div>
+
+          <div class="agenda-item">
+            <div class="time">12:00 - 13:00</div>
+            <div class="talk">
+              <strong>Carlos González</strong> (UCLM):<br />
+              Artificialmente... ¿Inteligente?
+            </div>
+          </div>
+
+          <div class="agenda-item">
+            <div class="time">13:00 - 14:00</div>
+            <div class="talk">
+              <strong>Mesa redonda moderada por Josep Prieto (UOC)</strong>:<br />
+              Programar en tiempos de IA: ¿qué y cómo debemos enseñar ahora?<br />
+              Participan Daniel Pérez (Minetechnology), Sergi Grau (UOC),
+              Jorge Hidalgo (Accenture) y Jon Bustillo (EHU)
+            </div>
+          </div>
+
+          <div class="agenda-item">
+            <div class="time">14:00</div>
+            <div class="talk"><span class="break">Lunch y despedida</span></div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Información práctica -->
+  <section id="info">
+    <div class="container">
+      <h2 class="section-title">Información práctica</h2>
+      <p class="section-subtitle">
+        Datos útiles para asistir a las jornadas.
+      </p>
+
+      <div class="info-grid">
+        <article class="card info-card">
+          <h3>📍 Lugar</h3>
+          <p><strong>Palacio Europa</strong></p>
+          <p>Av. Gasteiz, 85</p>
+          <p>01009 Vitoria-Gasteiz</p>
+        </article>
+
+        <article class="card info-card">
+          <h3>✉️ Contacto</h3>
+          <p><a href="mailto:fp.informatica.distancia@gmail.com">fp.informatica.distancia@gmail.com</a></p>
+          <p>Si necesitas cualquier aclaración, escríbenos por correo.</p>
+        </article>
+
+        <article class="card info-card">
+          <h3>🔗 Redes</h3>
+          <p>
+            X / Twitter:
+            <a href="https://x.com/eComputing_FP" target="_blank" rel="noopener">@eComputing_FP</a>
+          </p>
+          <p>También podrás seguir posibles avisos o novedades por ahí.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menús -->
+  <section id="menus">
+    <div class="container">
+      <h2 class="section-title">Menús</h2>
+      <p class="section-subtitle">
+        Puedes completar esta sección con la información de las comidas, opciones vegetarianas,
+        alergias o cualquier detalle logístico que os interese añadir.
+      </p>
+
+      <div class="menus-grid">
+        <article class="card menu-card">
+          <h3>Menú comida</h3>
+          <ul>
+            <li>Entrante: pendiente de confirmar</li>
+            <li>Plato principal: pendiente de confirmar</li>
+            <li>Postre: pendiente de confirmar</li>
+            <li>Opción vegetariana: disponible</li>
+          </ul>
+        </article>
+
+        <article class="card menu-card">
+          <h3>Observaciones</h3>
+          <ul>
+            <li>Si tienes alergias o intolerancias, consulta con la organización.</li>
+            <li>La información de los menús podrá actualizarse antes del evento.</li>
+            <li>Añade aquí cualquier detalle adicional si lo necesitas.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Organización -->
+  <section id="organizacion" class="logos-section">
+    <div class="container">
+      <h2 class="section-title">Organización y colaboración</h2>
+
+      <div class="logos-grid">
+        <article class="card logos-card">
+          <h3>Organizan</h3>
+          <div class="logo-row">
+            <img src="img/logo-birtlh.png" alt="BIRT LH" />
+            <img src="img/logo-fp-euskadi.png" alt="FP Euskadi" />
+            <img src="img/logo-gobierno-vasco.png" alt="Gobierno Vasco" />
+          </div>
+        </article>
+
+        <article class="card logos-card">
+          <h3>Colaboran</h3>
+          <div class="logo-row">
+            <img src="img/logo-uoc.png" alt="UOC" />
+            <img src="img/logo-isard.png" alt="Isard VDI" />
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pie -->
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <h4>eComputing 2026</h4>
+        <p>X Jornadas sobre la Enseñanza de la Informática en la FP a distancia.</p>
+        <p>Vitoria-Gasteiz · 2 y 3 de julio de 2026</p>
+      </div>
+
+      <div>
+        <h4>Lugar</h4>
+        <p>Palacio Europa</p>
+        <p>Av. Gasteiz, 85</p>
+        <p>01009 Vitoria-Gasteiz</p>
+      </div>
+
+      <div>
+        <h4>Contacto</h4>
+        <p><a href="mailto:fp.informatica.distancia@gmail.com">fp.informatica.distancia@gmail.com</a></p>
+        <p><a href="https://x.com/eComputing_FP" target="_blank" rel="noopener">@eComputing_FP</a></p>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      © eComputing 2026 · Birt LH
+    </div>
+  </footer>
 
 </body>
 </html>
