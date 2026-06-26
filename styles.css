@@ -470,6 +470,32 @@ footer::after {
   letter-spacing: 0.03em;
 }
 
+.price-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0.7rem 0 0;
+  background: #eef7ff;
+  color: var(--primary-dark);
+  font-weight: 700;
+  font-size: 0.97rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+}
+
+.sponsor-note {
+  margin: 0.7rem 0 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.sponsor-note strong {
+  color: var(--primary);
+  font-style: normal;
+}
+
 /* CAFÉ DESPLEGABLE */
 .cafe-details {
   display: inline-block;
@@ -612,6 +638,22 @@ footer::after {
   object-fit: contain;
   object-position: center;
   flex-shrink: 0;
+}
+
+.logo-row--uniform img.logo-lg {
+  height: 66px;
+  width: 155px;
+}
+
+.logo-row a {
+  display: inline-flex;
+  opacity: 0.85;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.logo-row a:hover {
+  opacity: 1;
+  transform: scale(1.05);
 }
 
 /* MENCIÓN ESPECIAL */
