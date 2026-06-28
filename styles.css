@@ -406,7 +406,7 @@ section {
 footer {
   background: linear-gradient(160deg, #0d2d6b 0%, #071b48 100%);
   color: var(--white);
-  margin-top: 3rem;
+  margin-top: 1.5rem;
   position: relative;
   overflow: hidden;
 }
@@ -564,7 +564,7 @@ footer::after {
 
 /* MENÚ PRINCIPAL */
 .menu-section {
-  padding: 3rem 0 4rem;
+  padding: 3rem 0 2rem;
 }
 
 .menu-grid {
@@ -736,6 +736,10 @@ footer::after {
 
   .hero {
     padding: 4rem 0 3rem;
+  }
+
+  .intro-wrap {
+    margin-top: 1.5rem;
   }
 
   .section-title {
